@@ -24,6 +24,18 @@ class App extends React.Component {
     })
   };
 
+  onFindPetsClick = (typeValue) => {
+    if (typeValue === 'all'){
+      fetch('/api/pets')
+      .then(resp => resp.json())
+      .then(console.log)
+    } else {
+      fetch(`/api/pets?type=${typeValue}`)
+      .then(resp => resp.json())
+      .then(console.log)
+    } 
+  };
+
   render() {
     console.log(this.state.filters)
     return (
@@ -34,7 +46,7 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters onChangeType={this.onChangeType}/>
+              <Filters onChangeType={this.onChangeType} onFindPetsClick={this.onFindPetsClick} typeValue={this.state.filters.type}/>
             </div>
             <div className="twelve wide column">
               <PetBrowser />
@@ -46,4 +58,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default App;
