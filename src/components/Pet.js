@@ -4,6 +4,11 @@ class Pet extends React.Component {
 
   // const { id type gender age weight name isAdopted } = this.props;
   
+
+  handleClick = () => {
+    this.props.onAdoptPet(this.props.id)
+  };
+
   render() {
     return (
       <div className="card">
@@ -22,8 +27,18 @@ class Pet extends React.Component {
           </div>
         </div>
         <div className="extra content">
-          <button className="ui disabled button">Already adopted</button>
-          <button className="ui primary button">Adopt pet</button>
+          {/* <button className="ui primary button">
+            Already adopted
+          </button>
+          <button className="ui disabled button">
+            Adopt pet
+          </button> */}
+          <button className={this.props.isAdopted? "ui primary button" : "ui disabled button"}>
+            Already adopted
+          </button>
+          <button className={this.props.isAdopted? "ui disabled button" : "ui primary button"} onClick={this.handleClick}>
+            Adopt pet
+          </button>
         </div>
       </div>
     )
