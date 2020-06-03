@@ -28,12 +28,25 @@ class App extends React.Component {
     if (typeValue === 'all'){
       fetch('/api/pets')
       .then(resp => resp.json())
-      .then(console.log)
+      .then(allPets => {
+        this.setState({
+          pets: allPets
+        })
+      })
     } else {
       fetch(`/api/pets?type=${typeValue}`)
       .then(resp => resp.json())
-      .then(console.log)
+      .then(somePets => {
+        this.setState({
+          pets: somePets
+        })
+      })
     } 
+  };
+
+  onAdoptPet = (petId) => {
+    const pet = this.state.pets.find(pet => pet.id === petId);
+    // change pet isAdopted property
   };
 
   render() {
@@ -49,7 +62,7 @@ class App extends React.Component {
               <Filters onChangeType={this.onChangeType} onFindPetsClick={this.onFindPetsClick} typeValue={this.state.filters.type}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser petArray={this.state.pets} onAdoptPet={this.onAdoptPet}/>
             </div>
           </div>
         </div>
